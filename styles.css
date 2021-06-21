@@ -5,14 +5,20 @@
 html {
   font-family: Arial, Helvetica, sans-serif;
 }
-.highscore-button {
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.timer-text, .highscore-button {
   margin-left: 2em;
   margin-top: 1em;
+  margin-right: 2em;
   color: var(--grey);
 }
 .highscore-button:hover {
   color: var(--orange);
-  transition: 1s;
+  transition: .5s;
 }
 .main-box {
   display: flex;
@@ -22,12 +28,32 @@ html {
 }
 .question {
   font-size: 4em;
+  text-align: center;
 }
 .sub-text {
   text-align: center;
   font-size: 1.5em;
   margin: 3em;
   color: var(--grey);
+}
+.name-input {
+    display: none;
+}
+.choice {
+    padding: .2em;
+    text-align: center;
+    font-size: 2.5em;
+    border-style: solid;
+    border-width: 5px;
+    border-color: var(--grey);
+    border-radius: 10px;
+    margin: 20px;
+    visibility: hidden;
+}
+.choice:hover {
+    background-color: var(--orange);
+    color: white;
+    transition: .2s;
 }
 .start-button {
   border-radius: 10px;
@@ -41,5 +67,15 @@ html {
 .start-button:hover {
     background-color: var(--orange);
     color: rgb(253, 253, 253);
-    transition: 1s;
+    transition: .5s;
+}
+.ans-check {
+    text-align: left;
+    font-size: 2em;
+    color: var(--grey);
+    padding-right: 5em;
+    padding-bottom: .5em;
+    border-style: solid;
+    border-bottom-width: 2px;
+    visibility: hidden;
 }

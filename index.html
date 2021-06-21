@@ -9,14 +9,26 @@
     <title>Coding-Quiz</title>
 </head>
 <body>
-    <div class="highscore-button">View Highscores</div>
+    <header>
+        <div class="highscore-button">View Highscores</div>
+        <div class="timer-text"></div>
+    </header>
     <div class="main-box">
         <h1 class="question">The Coding Quiz!!!</h1>
         <div class="sub-text">Test your coding knowledge by taking this coding terminology quiz. Press the start button to begin!</div>
+        <div class="name-input">
+        <input class="name-input-prompt" type="text" placeholder="Enter Name">
+        <button class="submit-button">Submit</button>
+        </div>
         <ul class="selection">
-
+            <li class="choice choice-1"></li>
+            <li class="choice choice-2"></li>
+            <li class="choice choice-3"></li>
+            <li class="choice choice-4"></li>
         </ul>
         <button class="start-button">Start</button>
+        <div class="ans-check"></div>
     </div>
 </body>
+<script src="script.js"></script>
 </html>
