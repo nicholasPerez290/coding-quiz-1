@@ -1,5 +1,6 @@
 var startButton = document.querySelector(".start-button");
 var highscoreButton = document.querySelector(".highscore-button");
+var highscores = document.querySelector(".highscores");
 var question = document.querySelector(".question");
 var subtext = document.querySelector(".sub-text");
 var ansList = document.querySelector(".selection");
@@ -23,9 +24,10 @@ var answers = [["boolean", "number","prompt","string"],
 ["a","figure","nav","link"],
 ["preventDefault","addEventListener","stopPropagation","getElementById"],
 ["flex","relative","absolute","definite"]];
+console.log(localStorage)
 var i = 0;
-var secondsLeft = 30
-var isEnd = false
+var secondsLeft = 45
+var isEnd = false;
 var changeQuestion = function() {
     console.log(i);
     var currentQ = questions[i];
@@ -52,6 +54,26 @@ var wrongAns = function() {
                     return;
                 }, 4000)   
 }
+var highscoreMenu = function(){
+    question.textContent = "Highscores";
+    subtext.style.display = "none";
+    startButton.style.visibility = "visible";
+    startButton.textContent = "Try Again";
+    // var playerName = JSON.parse(localStorage.getItem("scoreNames"));
+    // var playerScore = JSON.parse(localStorage.getItem("scores"));
+    // console.log(playerName, playerScore);
+       var playerName = JSON.parse(localStorage.getItem("scoreNames"));
+        var playerScore = JSON.parse(localStorage.getItem("scores"));
+        // playerName.push()
+        // playerScore.push(secondsLeft)
+        console.log(playerName.name);
+        console.log(playerScore.score);
+       var newLi = document.createElement("li");
+       newLi.textContent = `${playerName.name}: ${playerScore.score} seconds`;
+       console.log(newLi)
+       highscores.appendChild(newLi);
+       console.log(localStorage)
+    }
     ansList.addEventListener("click", function(event){
         var select = event.target;
         console.log(select);
@@ -108,7 +130,7 @@ var appendQ = function(Q, A) {
     startButton.style.visibility = "hidden";
     highscoreButton.style.visibility = "hidden";
     for(var k = 0; k < 4; k++){
-    choices[k].style.visibility = "visible";
+    choices[k].style.display = "block";
     }
     question.textContent = Q;
     subtext.textContent = " ";
@@ -122,6 +144,11 @@ var endGame = function(){
     namePrompt.style.display = "contents";
 }
 startButton.addEventListener("click", function(event){
+    secondsLeft = 45;
+    i = 0;
+    isEnd = false;
+    namePrompt.style.display = "none";
+    ansList.style.display = "block"
     event.preventDefault();
     console.log("working");
     var startTimer = setInterval(function(){
@@ -129,11 +156,30 @@ startButton.addEventListener("click", function(event){
         timer.textContent = `${secondsLeft} seconds left`;
         if (secondsLeft <= 0 || isEnd == true){
             clearInterval(startTimer);
+            endGame();
         }
     }, 1000);
     changeQuestion();
 });
-submitButton.addEventListener("submit",function(event){
+submitButton.addEventListener("click",function(event){
     event.preventDefault()
-    localStorage.setItem(nameBar.Value, secondsLeft);
+    if(!nameBar.value){
+        alert("Please enter a name to save score!");
+        return;
+    }
+    console.log(nameBar.value)
+    question.textContent = "Highscores";
+    namePrompt.style.display = "none";
+    subtext.style.display = "none";
+    var scoreNames = {
+        name: nameBar.value
+    }
+    var scores = {
+        score: secondsLeft
+    }
+    localStorage.setItem("scoreNames",JSON.stringify(scoreNames));
+    localStorage.setItem("scores",JSON.stringify(scores));
+    highscoreMenu()
 })
+highscoreButton.addEventListener("click",function(){
+    highscoreMenu()})
